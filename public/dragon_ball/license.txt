@@ -1,0 +1,11 @@
+Model Information:
+* title:	Esferas Del Dragon
+* source:	https://sketchfab.com/3d-models/esferas-del-dragon-2dccd89103da4e1fbe03a2b136f36302
+* author:	Andres Zuluaga (https://sketchfab.com/afzmtm)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Esferas Del Dragon" (https://sketchfab.com/3d-models/esferas-del-dragon-2dccd89103da4e1fbe03a2b136f36302) by Andres Zuluaga (https://sketchfab.com/afzmtm) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
