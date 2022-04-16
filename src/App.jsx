@@ -31,12 +31,12 @@ function App() {
   useLoop(() => {
     characterRef.current.moveForward(1.8)
   }, key === "s");
-  useLoop(() => {
-    characterRef.current.moveRight(-2);
-  }, key === "d");
-  useLoop(() => {
-    characterRef.current.moveRight(2);  
-  }, key === "a");
+  // useLoop(() => {
+  //   characterRef.current.moveRight(-2);
+  // }, key === "d");
+  // useLoop(() => {
+  //   characterRef.current.moveRight(2);  
+  // }, key === "a");
 
   return (
     <World>
@@ -48,9 +48,7 @@ function App() {
           animations={{
             idle: "idle.fbx",
             walking: "walking.fbx",
-            walkingBackwards: "walking-backwards.fbx",
-            leftTurn: "left-turn.fbx",
-            rightTurn: "right-turn.fbx"
+            walkingBackwards: "walking-backwards.fbx"
           }}
           animation={motion}
           scale={1}
