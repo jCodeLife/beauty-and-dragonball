@@ -4,6 +4,7 @@ import { createRef, useRef, useState } from "react"
 function App() {
   // useKeyboard用于监控当前按键
   const key = useKeyboard()
+  console.log(key);
   const [oneStar, setOneStar] = useState(false);
   const [twoStar, setTwoStar] = useState(false);
   const [threeStar, setThreeStar] = useState(false);
@@ -12,6 +13,7 @@ function App() {
   const [sixStar, setSixStar] = useState(false);
   const [sevenStar, setSevenStar] = useState(false);
 
+  const [sl, setSl] = useState(false);
 
   const characterRef = createRef()
   //用于标记找到的龙珠
@@ -35,9 +37,13 @@ function App() {
     motion = "running"
   }
 
+  if (key === "Space") {
+    motion = "jumping"
+  }
+
   // useLoop 帧循环勾子
   useLoop(() => {
-    characterRef.current.moveForward(-4)
+    characterRef.current.moveForward(-5)
   }, key === "w");
   useLoop(() => {
     characterRef.current.moveForward(1.8)
@@ -48,18 +54,16 @@ function App() {
   useLoop(() => {
     characterRef.current.moveForward(-10)
   }, key === "e");
-
   useLoop(() => {
-    console.log(characterRef.current.x, characterRef.current.y, characterRef.current.z)
-  }, key === "w");
+    characterRef.current.moveForward(-5)
+  }, key === "Space");
+
+
+
 
 
   return (
     <>
-      <div>
-        <h1>开始游戏</h1>
-        <p>可通过w和s以及鼠标控制角色前进后退</p>
-      </div>
       <World>
         <Skybox texture="skybox.jpg" />
 
@@ -73,7 +77,7 @@ function App() {
               walking: "walking.fbx",
               walkingBackwards: "walking-backwards.fbx",
               running: "running.fbx",
-              dancing: "dancing.fbx"
+              jumping: "jumping.fbx"
             }}
             animation={motion}
             scale={1}
@@ -92,6 +96,15 @@ function App() {
         </Model>
 
         <Model
+          src="dragon_balls\scene.gltf"
+          scale={3}
+          physics="map"
+          x={-221.30}
+          y={-1300.07}
+          z={-6722.07}
+        />
+
+        <Model
           src="dragon_ball.fbx"
           physics="map"
           x={516.29}
@@ -106,18 +119,19 @@ function App() {
               findBall.add(1)
               console.log(findBall)
               if (findBall.size === 7) {
-                alert("恭喜你！找完了7颗龙珠")
+                alert("恭喜你！成功收集龙珠，快回到初始位置向神龙许愿吧")
               }
             }} ></Find>
         </Model>
 
 
         <Model
+          id="two"
           src="dragon_ball.fbx"
           physics="map"
-          x={16.1}
-          y={-1274}
-          z={-6275.3}
+          x={-980.8}
+          y={-801.4}
+          z={2693.9}
           scale={.8}
         >
           <Find name="Two Star_02 - Default_0"
@@ -127,10 +141,11 @@ function App() {
               findBall.add(2)
               console.log(findBall)
               if (findBall.size === 7) {
-                alert("恭喜你！找完了7颗龙珠")
+                alert("恭喜你！成功收集龙珠，快回到初始位置向神龙许愿吧")
               }
             }} ></Find>
         </Model>
+
 
         <Model
           src="dragon_ball.fbx"
@@ -147,7 +162,7 @@ function App() {
               findBall.add(3)
               console.log(findBall)
               if (findBall.size === 7) {
-                alert("恭喜你！找完了7颗龙珠")
+                alert("恭喜你！成功收集龙珠，快回到初始位置向神龙许愿吧")
               }
             }} ></Find>
         </Model>
@@ -167,7 +182,7 @@ function App() {
               findBall.add(4)
               console.log(findBall)
               if (findBall.size === 7) {
-                alert("恭喜你！找完了7颗龙珠")
+                alert("恭喜你！成功收集龙珠，快回到初始位置向神龙许愿吧")
               }
             }} ></Find>
         </Model>
@@ -188,7 +203,7 @@ function App() {
               findBall.add(5)
               console.log(findBall)
               if (findBall.size === 7) {
-                alert("恭喜你！找完了7颗龙珠")
+                alert("恭喜你！成功收集龙珠，快回到初始位置向神龙许愿吧")
               }
             }} ></Find>
         </Model>
@@ -209,7 +224,7 @@ function App() {
               findBall.add(6)
               console.log(findBall)
               if (findBall.size === 7) {
-                alert("恭喜你！找完了7颗龙珠")
+                alert("恭喜你！成功收集龙珠，快回到初始位置向神龙许愿吧")
               }
             }} ></Find>
         </Model>
@@ -230,17 +245,34 @@ function App() {
               findBall.add(7)
               console.log(findBall)
               if (findBall.size === 7) {
-                alert("恭喜你！找完了7颗龙珠")
-                
+                alert("恭喜你！成功收集龙珠，快回到初始位置向神龙许愿吧")
+
               }
             }} ></Find>
         </Model>
 
+        <Model
+          visible={findBall.size === 1}
+          src="sl2.fbx"
+          scale={1}
+          x={-221.30}
+          y={-1300.07}
+          z={-3700}
+          // onClick={(e) => { findBall.add(0) }}
+          onClick={() => { setSl(true) }}
+        />
 
+          <Model
+            visible={sl}
+            
+            src="sl0.fbx"
+            scale={37.82}
+            x={-214.9}
+            y={-804.91}
+            z={-8364}
+          />
 
-
-
-
+         
 
       </World >
       <Reticle color="white" variant={1} />
