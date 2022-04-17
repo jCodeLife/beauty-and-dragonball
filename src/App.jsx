@@ -1,11 +1,21 @@
-import { Model, Skybox, ThirdPersonCamera, useKeyboard, useLoop, World } from "lingo3d-react"
-import { createRef, useRef } from "react"
+import { Editor, Model, Skybox, ThirdPersonCamera, useKeyboard, useLoop, World, Find, Reticle } from "lingo3d-react"
+import { createRef, useRef, useState } from "react"
 
 function App() {
   // useKeyboard用于监控当前按键
   const key = useKeyboard()
-  console.log(key);
+  const [mouseOver1, setMouseOver1] = useState(false);
+  const [mouseOver2, setMouseOver2] = useState(false);
+  const [mouseOver3, setMouseOver3] = useState(false);
+  const [mouseOver4, setMouseOver4] = useState(false);
+  const [mouseOver5, setMouseOver5] = useState(false);
+  const [mouseOver6, setMouseOver6] = useState(false);
+  const [mouseOver7, setMouseOver7] = useState(false);
+
+
   const characterRef = createRef()
+  //用于标记找到的龙珠
+  let [findBall, setFindBall] = useState(new Set())
   //声明motion，用于表示当前角色应该对应的动画，默认为站立idle
   let motion = "idle";
   // 前
@@ -20,6 +30,10 @@ function App() {
   if (key === "w e") {
     motion = "running"
   }
+  // 或者只按e时，开始跑
+  if (key === "e") {
+    motion = "running"
+  }
 
   // useLoop 帧循环勾子
   useLoop(() => {
@@ -31,39 +45,212 @@ function App() {
   useLoop(() => {
     characterRef.current.moveForward(-10)
   }, key === "w e");
+  useLoop(() => {
+    characterRef.current.moveForward(-10)
+  }, key === "e");
+
+  useLoop(() => {
+    console.log(characterRef.current.x, characterRef.current.y, characterRef.current.z)
+  }, key === "w");
+
 
   return (
-    <World>
-      <Skybox texture="skybox.jpg" />
+    <>
+      <div>
+        <h1>开始游戏</h1>
+        <p>可通过w和s以及鼠标控制角色前进后退</p>
+      </div>
+      <World>
+        <Skybox texture="skybox.jpg" />
 
-      <ThirdPersonCamera active mouseControl>
+        <ThirdPersonCamera active mouseControl innerY={66}>
+          <Model
+            ref={characterRef}
+            src="girl.fbx"
+            physics="character"
+            animations={{
+              idle: "idle.fbx",
+              walking: "walking.fbx",
+              walkingBackwards: "walking-backwards.fbx",
+              running: "running.fbx",
+              dancing: "dancing.fbx"
+            }}
+            animation={motion}
+            scale={1}
+            x={-221.30}
+            y={-1300.07}
+            z={-6722.07}
+            rotationY={-180}
+          />
+        </ThirdPersonCamera>
+
         <Model
-          ref={characterRef}
-          src="girl.fbx"
-          physics="character"
-          animations={{
-            idle: "idle.fbx",
-            walking: "walking.fbx",
-            walkingBackwards: "walking-backwards.fbx",
-            running: "running.fbx"
-          }}
-          animation={motion}
-          scale={1}
-        />
-      </ThirdPersonCamera>
+          src="map/scene.gltf"
+          scale={40}
+          physics="map"
+        >
+        </Model>
 
-      <Model
-        src="map/scene.gltf"
-        scale={40}
-        physics="map"
-      />
+        <Model
+          src="dragon_ball.fbx"
+          physics="map"
+          x={516.29}
+          y={-1198.63}
+          z={173.60}
+          scale={.5}
+        >
+          <Find name="Two Star_02 - Default_0"
+            outline={mouseOver1}
+            onClick={() => {
+              setMouseOver1(true)
+              findBall.add(1)
+              console.log(findBall)
+              if (findBall.size === 7) {
+                alert("恭喜你！找完了7颗龙珠")
+              }
+            }} ></Find>
+        </Model>
 
-      <Model
-        src="dragon_ball/scene.gltf"
-        scale={10}
-        physics="character"
-      />
-    </World >
+
+        <Model
+          src="dragon_ball.fbx"
+          physics="map"
+          x={16.1}
+          y={-1274}
+          z={-6275.3}
+          scale={.8}
+        >
+          <Find name="Two Star_02 - Default_0"
+            outline={mouseOver2}
+            onClick={() => {
+              setMouseOver2(true)
+              findBall.add(2)
+              console.log(findBall)
+              if (findBall.size === 7) {
+                alert("恭喜你！找完了7颗龙珠")
+              }
+            }} ></Find>
+        </Model>
+
+        <Model
+          src="dragon_ball.fbx"
+          physics="map"
+          x={-420.9}
+          y={-1289.5}
+          z={-3538.2}
+          scale={.5}
+        >
+          <Find name="Two Star_02 - Default_0"
+            outline={mouseOver3}
+            onClick={() => {
+              setMouseOver3(true)
+              findBall.add(3)
+              console.log(findBall)
+              if (findBall.size === 7) {
+                alert("恭喜你！找完了7颗龙珠")
+              }
+            }} ></Find>
+        </Model>
+
+        <Model
+          src="dragon_ball.fbx"
+          physics="map"
+          x={-676.3}
+          y={-1900.2}
+          z={6343.7}
+          scale={.8}
+        >
+          <Find name="Two Star_02 - Default_0"
+            outline={mouseOver4}
+            onClick={() => {
+              setMouseOver4(true)
+              findBall.add(4)
+              console.log(findBall)
+              if (findBall.size === 7) {
+                alert("恭喜你！找完了7颗龙珠")
+              }
+            }} ></Find>
+        </Model>
+
+
+        <Model
+          src="dragon_ball.fbx"
+          physics="map"
+          x={-898.7}
+          y={-1231.8}
+          z={3563.8}
+          scale={.5}
+        >
+          <Find name="Two Star_02 - Default_0"
+            outline={mouseOver5}
+            onClick={() => {
+              setMouseOver5(true)
+              findBall.add(5)
+              console.log(findBall)
+              if (findBall.size === 7) {
+                alert("恭喜你！找完了7颗龙珠")
+              }
+            }} ></Find>
+        </Model>
+
+
+        <Model
+          src="dragon_ball.fbx"
+          physics="map"
+          x={395.9}
+          y={-1308.6}
+          z={5900.3}
+          scale={.8}
+        >
+          <Find name="Two Star_02 - Default_0"
+            outline={mouseOver6}
+            onClick={() => {
+              setMouseOver6(true)
+              findBall.add(6)
+              console.log(findBall)
+              if (findBall.size === 7) {
+                alert("恭喜你！找完了7颗龙珠")
+              }
+            }} ></Find>
+        </Model>
+
+
+        <Model
+          src="dragon_ball.fbx"
+          physics="map"
+          x={455.8}
+          y={-1267.0}
+          z={3867.4}
+          scale={.8}
+        >
+          <Find name="Two Star_02 - Default_0"
+            outline={mouseOver7}
+            onClick={() => {
+              setMouseOver7(true)
+              findBall.add(7)
+              console.log(findBall)
+              if (findBall.size === 7) {
+                alert("恭喜你！找完了7颗龙珠")
+                
+              }
+            }} ></Find>
+        </Model>
+
+
+
+
+
+
+
+      </World >
+      <Reticle color="white" variant={1} />
+
+
+      {/* <Editor /> */}
+
+
+
+    </>
   )
 }
 
