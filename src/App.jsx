@@ -4,13 +4,13 @@ import { createRef, useRef, useState } from "react"
 function App() {
   // useKeyboard用于监控当前按键
   const key = useKeyboard()
-  const [mouseOver1, setMouseOver1] = useState(false);
-  const [mouseOver2, setMouseOver2] = useState(false);
-  const [mouseOver3, setMouseOver3] = useState(false);
-  const [mouseOver4, setMouseOver4] = useState(false);
-  const [mouseOver5, setMouseOver5] = useState(false);
-  const [mouseOver6, setMouseOver6] = useState(false);
-  const [mouseOver7, setMouseOver7] = useState(false);
+  const [oneStar, setOneStar] = useState(false);
+  const [twoStar, setTwoStar] = useState(false);
+  const [threeStar, setThreeStar] = useState(false);
+  const [fourStar, setFourStar] = useState(false);
+  const [fiveStar, setFiveStar] = useState(false);
+  const [sixStar, setSixStar] = useState(false);
+  const [sevenStar, setSevenStar] = useState(false);
 
 
   const characterRef = createRef()
@@ -100,9 +100,9 @@ function App() {
           scale={.5}
         >
           <Find name="Two Star_02 - Default_0"
-            outline={mouseOver1}
+            outline={oneStar}
             onClick={() => {
-              setMouseOver1(true)
+              setOneStar(true)
               findBall.add(1)
               console.log(findBall)
               if (findBall.size === 7) {
@@ -121,9 +121,9 @@ function App() {
           scale={.8}
         >
           <Find name="Two Star_02 - Default_0"
-            outline={mouseOver2}
+            outline={twoStar}
             onClick={() => {
-              setMouseOver2(true)
+              setTwoStar(true)
               findBall.add(2)
               console.log(findBall)
               if (findBall.size === 7) {
@@ -141,9 +141,9 @@ function App() {
           scale={.5}
         >
           <Find name="Two Star_02 - Default_0"
-            outline={mouseOver3}
+            outline={threeStar}
             onClick={() => {
-              setMouseOver3(true)
+              setThreeStar(true)
               findBall.add(3)
               console.log(findBall)
               if (findBall.size === 7) {
@@ -161,9 +161,9 @@ function App() {
           scale={.8}
         >
           <Find name="Two Star_02 - Default_0"
-            outline={mouseOver4}
+            outline={fourStar}
             onClick={() => {
-              setMouseOver4(true)
+              setFourStar(true)
               findBall.add(4)
               console.log(findBall)
               if (findBall.size === 7) {
@@ -182,9 +182,9 @@ function App() {
           scale={.5}
         >
           <Find name="Two Star_02 - Default_0"
-            outline={mouseOver5}
+            outline={fiveStar}
             onClick={() => {
-              setMouseOver5(true)
+              setFiveStar(true)
               findBall.add(5)
               console.log(findBall)
               if (findBall.size === 7) {
@@ -203,9 +203,9 @@ function App() {
           scale={.8}
         >
           <Find name="Two Star_02 - Default_0"
-            outline={mouseOver6}
+            outline={sixStar}
             onClick={() => {
-              setMouseOver6(true)
+              setSixStar(true)
               findBall.add(6)
               console.log(findBall)
               if (findBall.size === 7) {
@@ -224,9 +224,9 @@ function App() {
           scale={.8}
         >
           <Find name="Two Star_02 - Default_0"
-            outline={mouseOver7}
+            outline={sevenStar}
             onClick={() => {
-              setMouseOver7(true)
+              setSevenStar(true)
               findBall.add(7)
               console.log(findBall)
               if (findBall.size === 7) {
