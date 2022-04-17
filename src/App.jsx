@@ -13,8 +13,11 @@ function App() {
   const [sixStar, setSixStar] = useState(false);
   const [sevenStar, setSevenStar] = useState(false);
 
+
   const [sl, setSl] = useState(false);
 
+
+  const mapRef = createRef();
   const characterRef = createRef()
   //用于标记找到的龙珠
   let [findBall, setFindBall] = useState(new Set())
@@ -22,7 +25,7 @@ function App() {
   let motion = "idle";
   // 前
   if (key === "w") {
-    motion = "walking"
+    motion = "running"
   }
   // 后
   if (key === "s") {
@@ -43,13 +46,13 @@ function App() {
 
   // useLoop 帧循环勾子
   useLoop(() => {
-    characterRef.current.moveForward(-5)
+    characterRef.current.moveForward(-10)
   }, key === "w");
   useLoop(() => {
     characterRef.current.moveForward(1.8)
   }, key === "s");
   useLoop(() => {
-    characterRef.current.moveForward(-10)
+    characterRef.current.moveForward(-15)
   }, key === "w e");
   useLoop(() => {
     characterRef.current.moveForward(-10)
@@ -64,6 +67,7 @@ function App() {
 
   return (
     <>
+
       <World>
         <Skybox texture="skybox.jpg" />
 
@@ -89,7 +93,8 @@ function App() {
         </ThirdPersonCamera>
 
         <Model
-          src="map/scene.gltf"
+          ref={mapRef}
+          src={findBall.size < 3 ? "map/scene.gltf" : "myhome.fbx"}
           scale={40}
           physics="map"
         >
@@ -252,36 +257,39 @@ function App() {
         </Model>
 
         <Model
-          visible={findBall.size === 7}
+          visible={findBall.size === 1}
           src="sl2.fbx"
           scale={1}
           x={-221.30}
           y={-1300.07}
           z={-3700}
 
-          onClick={() => {             
-            setSl(true) 
+          onClick={() => {
+            setSl(true)
             findBall.add(0)
           }}
         />
 
-          <Model
-            visible={sl}
-            
-            src="sl0.fbx"
-            scale={37.82}
-            x={-214.9}
-            y={-804.91}
-            z={-8364}
-          />
+        <Model
+          visible={sl}
 
-         
+          src="sl0.fbx"
+          scale={37.82}
+          x={-214.9}
+          y={-804.91}
+          z={-8364}
+          onClick={() => {
+            findBall.add(8)
+            console.log(findBall)
+          }}
+        />
 
+
+        {/* <Editor /> */}
       </World >
       <Reticle color="white" variant={1} />
 
 
-      {/* <Editor /> */}
 
 
 
