@@ -252,14 +252,17 @@ function App() {
         </Model>
 
         <Model
-          visible={findBall.size === 1}
+          visible={findBall.size === 7}
           src="sl2.fbx"
           scale={1}
           x={-221.30}
           y={-1300.07}
           z={-3700}
-          // onClick={(e) => { findBall.add(0) }}
-          onClick={() => { setSl(true) }}
+
+          onClick={() => {             
+            setSl(true) 
+            findBall.add(0)
+          }}
         />
 
           <Model
