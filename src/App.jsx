@@ -44,6 +44,10 @@ function App() {
     motion = "jumping"
   }
 
+  if (key === "d") {
+    motion = "dancing"
+  }
+
   // useLoop 帧循环勾子
   useLoop(() => {
     characterRef.current.moveForward(-10)
@@ -58,8 +62,11 @@ function App() {
     characterRef.current.moveForward(-10)
   }, key === "e");
   useLoop(() => {
-    characterRef.current.moveForward(-5)
+
+    characterRef.current.moveForward(-2)
+    characterRef.current.y += 5
   }, key === "Space");
+
 
 
 
@@ -69,32 +76,38 @@ function App() {
     <>
 
       <World>
+        {/* <Editor /> */}
         <Skybox texture="skybox.jpg" />
 
         <ThirdPersonCamera active mouseControl innerY={66}>
           <Model
             ref={characterRef}
             src="girl.fbx"
-            physics="character"
+            physics={findBall.size < 9 ? "character" : "map"}
             animations={{
               idle: "idle.fbx",
               walking: "walking.fbx",
               walkingBackwards: "walking-backwards.fbx",
               running: "running.fbx",
-              jumping: "jumping.fbx"
+              jumping: "jumping.fbx",
+              dancing: "dancing.fbx"
             }}
             animation={motion}
             scale={1}
-            x={-221.30}
-            y={-1300.07}
-            z={-6722.07}
+            x={findBall.size < 9 ? -221.30 : 209.39}
+            y={findBall.size < 9 ? -1300.07 : -317.7}
+            z={findBall.size < 9 ? -6722.07 : 703.66}
+            // x={505.20}
+            // y={471.73}
+            // z={684.88}
             rotationY={-180}
           />
         </ThirdPersonCamera>
 
         <Model
           ref={mapRef}
-          src={findBall.size < 3 ? "map/scene.gltf" : "myhome.fbx"}
+          src={findBall.size < 9 ? "map/scene.gltf" : "myhome.fbx"}
+          // src={"myhome.fbx"}
           scale={40}
           physics="map"
         >
@@ -124,7 +137,7 @@ function App() {
               findBall.add(1)
               console.log(findBall)
               if (findBall.size === 7) {
-                alert("恭喜你！成功收集龙珠，快回到初始位置向神龙许愿吧")
+                alert("龙珠收集成功，龙已经出现在某个地方")
               }
             }} ></Find>
         </Model>
@@ -146,7 +159,7 @@ function App() {
               findBall.add(2)
               console.log(findBall)
               if (findBall.size === 7) {
-                alert("恭喜你！成功收集龙珠，快回到初始位置向神龙许愿吧")
+                alert("龙珠收集成功，龙已经出现在某个地方")
               }
             }} ></Find>
         </Model>
@@ -167,7 +180,7 @@ function App() {
               findBall.add(3)
               console.log(findBall)
               if (findBall.size === 7) {
-                alert("恭喜你！成功收集龙珠，快回到初始位置向神龙许愿吧")
+                alert("龙珠收集成功，龙已经出现在某个地方")
               }
             }} ></Find>
         </Model>
@@ -187,7 +200,7 @@ function App() {
               findBall.add(4)
               console.log(findBall)
               if (findBall.size === 7) {
-                alert("恭喜你！成功收集龙珠，快回到初始位置向神龙许愿吧")
+                alert("龙珠收集成功，龙已经出现在某个地方")
               }
             }} ></Find>
         </Model>
@@ -208,7 +221,7 @@ function App() {
               findBall.add(5)
               console.log(findBall)
               if (findBall.size === 7) {
-                alert("恭喜你！成功收集龙珠，快回到初始位置向神龙许愿吧")
+                alert("龙珠收集成功，龙已经出现在某个地方")
               }
             }} ></Find>
         </Model>
@@ -229,7 +242,7 @@ function App() {
               findBall.add(6)
               console.log(findBall)
               if (findBall.size === 7) {
-                alert("恭喜你！成功收集龙珠，快回到初始位置向神龙许愿吧")
+                alert("龙珠收集成功，龙已经出现在某个地方")
               }
             }} ></Find>
         </Model>
@@ -250,14 +263,14 @@ function App() {
               findBall.add(7)
               console.log(findBall)
               if (findBall.size === 7) {
-                alert("恭喜你！成功收集龙珠，快回到初始位置向神龙许愿吧")
+                alert("龙珠收集成功，龙已经出现在某个地方")
 
               }
             }} ></Find>
         </Model>
 
         <Model
-          visible={findBall.size === 1}
+          visible={findBall.size === 7}
           src="sl2.fbx"
           scale={1}
           x={-221.30}
@@ -271,7 +284,7 @@ function App() {
         />
 
         <Model
-          visible={sl}
+          visible={sl && (findBall.size === 8)}
 
           src="sl0.fbx"
           scale={37.82}
@@ -285,7 +298,7 @@ function App() {
         />
 
 
-        {/* <Editor /> */}
+
       </World >
       <Reticle color="white" variant={1} />
 
