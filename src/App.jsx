@@ -1,5 +1,5 @@
 import { Editor, Model, Skybox, ThirdPersonCamera, useKeyboard, useLoop, World, Find, Reticle, Joystick } from "lingo3d-react"
-import React, { createRef, useState } from "react"
+import { createRef, useState } from "react"
 
 function App() {
   // useKeyboard用于监控当前按键
@@ -13,13 +13,14 @@ function App() {
   const [sixStar, setSixStar] = useState(false);
   const [sevenStar, setSevenStar] = useState(false);
 
- 
+  // const [angleY, setAngleY] = useState(180);
 
   const [sl, setSl] = useState(false);
 
 
   const mapRef = createRef();
   const characterRef = createRef()
+  const cameraRef = createRef()
   //用于标记找到的龙珠
   let [findBall, setFindBall] = useState(new Set())
   //声明motion，用于表示当前角色应该对应的动画，默认为站立idle
@@ -80,7 +81,7 @@ function App() {
         {/* <Editor /> */}
         <Skybox texture="skybox.jpg" />
 
-        <ThirdPersonCamera active mouseControl innerY={66}>
+        <ThirdPersonCamera active mouseControl innerY={66} ref={cameraRef}>
           <Model
             ref={characterRef}
             src="girl.fbx"
@@ -102,7 +103,7 @@ function App() {
             // y={471.73}
             // z={684.88}
             // rotationY={180}
-            
+
             rotationY={180}
           />
         </ThirdPersonCamera>
@@ -307,25 +308,36 @@ function App() {
 
       {/* 添加Joystick 摇杆 */}
 
+      {/* Joystick组件，有个onMove方法，它接收一个函数，函数会接收一个参数e，e.x的值是-50到50，e.y也是-50到50;e.angle是正负180，以x轴正方向为0度，你顺时针为正，逆时针为负 */}
       <Joystick
         onMove={e => {
-          // 默认情况下，e.x的值时-50到50，e.y也是-50到50;e.angle是正负180，以x轴正方向为0度，你顺时针为正，逆时针为负
-          // console.log(e);
-          // 而anglex的值是，正负180，逆时针为正，顺时针为负。
-          // 所以e.x换成angleX应该是：(180/50)*angleX
-          // setAngleY((180/50)*e.y)
-          if (e.y == 0) {
-            characterRef.current.animation="idle"
-          }
+          // 控制前、后的移动和站立
           if (e.y < 0) {
             characterRef.current.moveForward(-10)
-            characterRef.current.animation="running"
-          }
-          if (e.y > 0) {
+            characterRef.current.animation = "running"
+          } else if (e.y > 0) {
             characterRef.current.moveForward(5)
-            characterRef.current.animation="walkingBackwards"
+            characterRef.current.animation = "walkingBackwards"
+          } else {
+            characterRef.current.animation = "idle"
           }
 
+          // 根据摇杆转动的角度，控制角色的转动
+          // characterRef.current.innerRotationY=3*e.y;
+          // cameraRef.current.innerRotationY = 3*e.y;
+
+          // console.log(e.y);
+
+
+          // console.log(e.angle);
+
+          // characterRef.current.rotationY=e.angle;
+
+          // characterRef.current.innerRotationY = e.angle+90;
+          // cameraRef.current.innerRotationY = e.angle+90;
+
+          characterRef.current.rotationY = e.angle+90;
+          cameraRef.current.rotationY = e.angle+90;
         }}
       />
 
