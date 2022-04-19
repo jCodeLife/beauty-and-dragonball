@@ -1,10 +1,10 @@
-import { Editor, Model, Skybox, ThirdPersonCamera, useKeyboard, useLoop, World, Find, Reticle } from "lingo3d-react"
-import { createRef, useState } from "react"
+import { Editor, Model, Skybox, ThirdPersonCamera, useKeyboard, useLoop, World, Find, Reticle, Joystick } from "lingo3d-react"
+import React, { createRef, useState } from "react"
 
 function App() {
   // useKeyboard用于监控当前按键
   const key = useKeyboard()
-  console.log(key);
+  // console.log(key);
   const [oneStar, setOneStar] = useState(false);
   const [twoStar, setTwoStar] = useState(false);
   const [threeStar, setThreeStar] = useState(false);
@@ -13,9 +13,7 @@ function App() {
   const [sixStar, setSixStar] = useState(false);
   const [sevenStar, setSevenStar] = useState(false);
 
-
-  const [angleX, setAngleX] = useState(0)
-  const [angleY, setAngleY] = useState(0)
+ 
 
   const [sl, setSl] = useState(false);
 
@@ -103,9 +101,9 @@ function App() {
             // x={505.20}
             // y={471.73}
             // z={684.88}
-            // rotationY={-180}
-            rotationX={angleX}
-            rotationY={angleY}
+            // rotationY={180}
+            
+            rotationY={180}
           />
         </ThirdPersonCamera>
 
@@ -309,10 +307,27 @@ function App() {
 
       {/* 添加Joystick 摇杆 */}
 
-      <Joystick onMove={e => {
-        setAngleX(angleX + e.x / 2)
-        setAngleY(angleY + e.y / 2)
-      }} />
+      <Joystick
+        onMove={e => {
+          // 默认情况下，e.x的值时-50到50，e.y也是-50到50;e.angle是正负180，以x轴正方向为0度，你顺时针为正，逆时针为负
+          // console.log(e);
+          // 而anglex的值是，正负180，逆时针为正，顺时针为负。
+          // 所以e.x换成angleX应该是：(180/50)*angleX
+          // setAngleY((180/50)*e.y)
+          if (e.y == 0) {
+            characterRef.current.animation="idle"
+          }
+          if (e.y < 0) {
+            characterRef.current.moveForward(-10)
+            characterRef.current.animation="running"
+          }
+          if (e.y > 0) {
+            characterRef.current.moveForward(5)
+            characterRef.current.animation="walkingBackwards"
+          }
+
+        }}
+      />
 
     </>
   )
