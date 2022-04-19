@@ -1,5 +1,5 @@
 import { Editor, Model, Skybox, ThirdPersonCamera, useKeyboard, useLoop, World, Find, Reticle } from "lingo3d-react"
-import { createRef, useRef, useState } from "react"
+import { createRef, useState } from "react"
 
 function App() {
   // useKeyboard用于监控当前按键
@@ -13,6 +13,9 @@ function App() {
   const [sixStar, setSixStar] = useState(false);
   const [sevenStar, setSevenStar] = useState(false);
 
+
+  const [angleX, setAngleX] = useState(0)
+  const [angleY, setAngleY] = useState(0)
 
   const [sl, setSl] = useState(false);
 
@@ -100,7 +103,9 @@ function App() {
             // x={505.20}
             // y={471.73}
             // z={684.88}
-            rotationY={-180}
+            // rotationY={-180}
+            rotationX={angleX}
+            rotationY={angleY}
           />
         </ThirdPersonCamera>
 
@@ -302,9 +307,12 @@ function App() {
       </World >
       <Reticle color="white" variant={1} />
 
+      {/* 添加Joystick 摇杆 */}
 
-
-
+      <Joystick onMove={e => {
+        setAngleX(angleX + e.x / 2)
+        setAngleY(angleY + e.y / 2)
+      }} />
 
     </>
   )
