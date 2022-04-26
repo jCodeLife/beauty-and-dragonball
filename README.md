@@ -7,6 +7,12 @@
 
 所以此项目是基于这个故事做成的 3D 冒险游戏，可以通过控制人物来寻找龙珠，召唤神龙
 
+## 在线预览
+
+- [地址1](https://jcodelife.gitee.io/online/)
+- [地址2](https://jcodelife.github.io/beauty-and-dragonball-js/)
+
+
 
 ## 技术栈
 
